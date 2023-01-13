@@ -1,0 +1,53 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  creationTimestamp: "2023-01-12T10:38:22Z"
+  finalizers:
+  - cluster.cluster.x-k8s.io
+  generation: 2
+  labels:
+    deploymentId: 63bfe31b245e91d1e895bc31
+  name: cluster-test-1
+  namespace: default
+  resourceVersion: "62080747"
+  uid: 1585ecf3-c859-4c9b-a357-af8bf3f73ea2
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+      - 192.168.0.0/16
+    serviceDomain: cluster.local
+  controlPlaneEndpoint:
+    host: 10.254.14.62
+    port: 6443
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+    kind: KubeadmControlPlane
+    name: cluster-test-1-control-plane
+    namespace: default
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha5
+    kind: OpenStackCluster
+    name: cluster-test-1
+    namespace: default
+status:
+  conditions:
+  - lastTransitionTime: "2023-01-12T10:42:34Z"
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2023-01-12T10:42:35Z"
+    status: "True"
+    type: ControlPlaneInitialized
+  - lastTransitionTime: "2023-01-12T10:42:34Z"
+    status: "True"
+    type: ControlPlaneReady
+  - lastTransitionTime: "2023-01-12T10:39:23Z"
+    status: "True"
+    type: InfrastructureReady
+  controlPlaneReady: true
+  failureDomains:
+    nova:
+      controlPlane: true
+  infrastructureReady: true
+  observedGeneration: 2
+  phase: Provisioned
