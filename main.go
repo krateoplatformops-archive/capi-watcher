@@ -14,6 +14,7 @@ import (
 	"github.com/krateoplatformops/capi-watcher/internal/support"
 	"github.com/krateoplatformops/capi-watcher/internal/watcher"
 	"github.com/rs/zerolog"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/rest"
@@ -35,11 +36,11 @@ func main() {
 
 	kubeconfig := flag.String(clientcmd.RecommendedConfigPathFlag, "", "absolute path to the kubeconfig file")
 	debug := flag.Bool("debug",
-		support.EnvBool("OBJECT_STATUS_WATCHER_DEBUG", false), "dump verbose output")
+		support.EnvBool("CAPI_WATCHER_DEBUG", false), "dump verbose output")
 	resyncInterval := flag.Duration("resync-interval",
-		support.EnvDuration("OBJECT_STATUS_WATCHER_RESYNC_INTERVAL", time.Minute*3), "resync interval")
+		support.EnvDuration("CAPI_WATCHER_RESYNC_INTERVAL", time.Minute*10), "resync interval")
 	namespace := flag.String("namespace",
-		support.EnvString("OBJECT_STATUS_WATCHER_NAMESPACE", ""), "namespace to list and watch")
+		support.EnvString("CAPI_WATCHER_NAMESPACE", corev1.NamespaceAll), "namespace to list and watch")
 
 	flag.Usage = func() {
 		fmt.Fprintln(flag.CommandLine.Output(), "Flags:")

@@ -64,17 +64,17 @@ func (h *statusChecker) Handle(obj *unstructured.Unstructured) {
 			Msg("converting from unstructured")
 	}
 
-	h.recorder.Eventf(&cluster, corev1.EventTypeNormal, "ClusterReady", "Cluster %s is Ready", obj.GetName())
+	h.recorder.Eventf(&cluster, corev1.EventTypeNormal, "SuccessfulCreateCluster", "Cluster %s is Ready", obj.GetName())
 }
 
 func (h *statusChecker) checkCondition(obj *unstructured.Unstructured) (bool, error) {
 	conditions, ok, err := unstructured.NestedSlice(obj.Object, "status", "conditions")
 	if err != nil {
-		h.log.Err(err).Msg("Looking for status.conditions")
+		h.log.Err(err).Msg("looking for status.conditions")
 		return false, err
 	}
 	if !ok {
-		h.log.Info().Msg("Object miss status.conditions fields.")
+		h.log.Info().Msg("object miss status.conditions fields.")
 		return false, nil
 	}
 
